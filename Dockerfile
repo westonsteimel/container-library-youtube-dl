@@ -9,7 +9,7 @@
 
 FROM python:3-alpine
 
-ENV YOUTUBE_DL_VERSION 2019.04.07
+ENV YOUTUBE_DL_VERSION 2019.04.17
 
 RUN addgroup -g 1000 youtube-dl \
     && adduser -u 1000 -G youtube-dl -s /bin/sh -D youtube-dl
