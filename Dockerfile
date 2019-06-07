@@ -9,10 +9,10 @@
 
 FROM python:3-alpine
 
-ENV YOUTUBE_DL_VERSION 2019.05.20
+ENV YOUTUBE_DL_VERSION 2019.06.08
 
-RUN addgroup -g 1000 youtube-dl \
-    && adduser -u 1000 -G youtube-dl -s /bin/sh -D youtube-dl
+RUN addgroup youtube-dl \
+    && adduser -G youtube-dl -s /bin/sh -D youtube-dl
 
 USER youtube-dl
 ENV PATH "/home/youtube-dl/.local/bin:$PATH"
