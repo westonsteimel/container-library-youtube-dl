@@ -8,6 +8,7 @@
 #
 
 FROM python:3-alpine
+LABEL version=2019.06.08 
 
 ENV YOUTUBE_DL_VERSION 2019.06.08
 
