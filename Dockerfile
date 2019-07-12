@@ -9,8 +9,8 @@
 
 FROM python:3-alpine
 
-LABEL "version"="2019.07.02" 
-ENV YOUTUBE_DL_VERSION 2019.07.02 
+LABEL "version"="2019.07.12" 
+ENV YOUTUBE_DL_VERSION 2019.07.12 
 
 RUN addgroup youtube-dl \
     && adduser -G youtube-dl -s /bin/sh -D youtube-dl
