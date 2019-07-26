@@ -9,8 +9,8 @@
 
 FROM python:3-alpine
 
-LABEL "version"="2019.07.16" 
-ENV YOUTUBE_DL_VERSION 2019.07.16 
+ARG YOUTUBE_DL_VERSION="2019.07.27"
+ENV YOUTUBE_DL_VERSION "${YOUTUBE_DL_VERSION}"
 
 RUN addgroup youtube-dl \
     && adduser -G youtube-dl -s /bin/sh -D youtube-dl
@@ -23,3 +23,6 @@ WORKDIR /home/youtube-dl/Downloads
 ENTRYPOINT ["youtube-dl"]
 CMD ["--help"]
 
+LABEL org.opencontainers.image.url="https://github.com/westonsteimel/docker-youtube-dl" \ 
+    org.opencontainers.image.source="https://github.com/westonsteimel/docker-youtube-dl" \
+    org.opencontainers.image.version="${YOUTUBE_DL_VERSION}"
