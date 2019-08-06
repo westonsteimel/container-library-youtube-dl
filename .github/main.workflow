@@ -1,33 +1,33 @@
 workflow "Build and deploy on push" {
   on = "push"
   resolves = [
-    "Docker Registry",
+    "Login DockerHub",
     "Docker Push"
   ]
 }
 
-action "Docker Registry" {
-  uses = "actions/docker/login@master"
+action "Login DockerHub" {
+  uses = "actions/docker/login@86ff551d26008267bb89ac11198ba7f1d807b699"
   secrets = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
 }
 
 action "Docker Build" {
-  uses = "actions/docker/cli@master"
-  needs = ["Docker Registry"]
-  args = "build -t  $DOCKER_USERNAME/youtube-dl ."
+  uses = "actions/docker/cli@86ff551d26008267bb89ac11198ba7f1d807b699"
+  args = "build -t \"${DOCKER_USERNAME}/youtube-dl:latest\" ."
   secrets = ["DOCKER_USERNAME"]
+  needs = ["Login DockerHub"]
 }
 
 action "Docker Tag" {
-  uses = "actions/docker/tag@master"
+  uses = "actions/docker/cli@86ff551d26008267bb89ac11198ba7f1d807b699"
   needs = ["Docker Build"]
-  args = "$DOCKER_USERNAME/youtube-dl $DOCKER_USERNAME/youtube-dl"
+  runs = ["./tag.sh"]
   secrets = ["DOCKER_USERNAME"]
 }
 
 action "Docker Push" {
-  uses = "actions/docker/cli@master"
+  uses = "actions/docker/cli@86ff551d26008267bb89ac11198ba7f1d807b699"
   needs = ["Docker Tag"]
-  args = "push $DOCKER_USERNAME/youtube-dl"
+  args = "push \"${DOCKER_USERNAME}/youtube-dl\""
   secrets = ["DOCKER_USERNAME"]
 }

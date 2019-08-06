@@ -23,6 +23,8 @@ WORKDIR /home/youtube-dl/Downloads
 ENTRYPOINT ["youtube-dl"]
 CMD ["--help"]
 
-LABEL org.opencontainers.image.url="https://github.com/westonsteimel/docker-youtube-dl" \ 
+LABEL org.opencontainers.image.title="youtube-dl" \
+    org.opencontainers.image.description="youtube-dl in Docker" \  
+    org.opencontainers.image.url="https://github.com/westonsteimel/docker-youtube-dl" \ 
     org.opencontainers.image.source="https://github.com/westonsteimel/docker-youtube-dl" \
     org.opencontainers.image.version="${YOUTUBE_DL_VERSION}"
