@@ -7,9 +7,11 @@
 #       youtube-dl "$@"
 #
 
+ARG YOUTUBE_DL_VERSION="2019.08.13"
+
 FROM python:3-alpine
 
-ARG YOUTUBE_DL_VERSION="2019.08.13"
+ARG YOUTUBE_DL_VERSION
 ENV YOUTUBE_DL_VERSION "${YOUTUBE_DL_VERSION}"
 
 RUN addgroup youtube-dl \
@@ -27,4 +29,5 @@ LABEL org.opencontainers.image.title="youtube-dl" \
     org.opencontainers.image.description="youtube-dl in Docker" \  
     org.opencontainers.image.url="https://github.com/westonsteimel/docker-youtube-dl" \ 
     org.opencontainers.image.source="https://github.com/westonsteimel/docker-youtube-dl" \
-    org.opencontainers.image.version="${YOUTUBE_DL_VERSION}"
+    org.opencontainers.image.version="${YOUTUBE_DL_VERSION}" \
+    version="${YOUTUBE_DL_VERSION}"
