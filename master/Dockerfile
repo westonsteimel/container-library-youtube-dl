@@ -19,7 +19,6 @@ RUN apk add --no-cache git \
     && adduser -G youtube-dl -s /bin/sh -D youtube-dl
 
 USER youtube-dl
-ENV PATH "/home/youtube-dl/.local/bin:$PATH"
 RUN pip install --user --no-cache-dir "git+https://github.com/ytdl-org/youtube-dl@${YOUTUBE_DL_VERSION}" 
 
 FROM python:3-alpine
@@ -31,8 +30,7 @@ RUN addgroup youtube-dl \
 
 USER youtube-dl
 ENV PATH "/home/youtube-dl/.local/bin:$PATH"
-COPY --from=builder /home/youtube-dl/.local/lib/python3.7/site-packages/youtube_dl/ /home/youtube-dl/.local/lib/python3.7/site-packages/youtube_dl/
-COPY --from=builder /home/youtube-dl/.local/bin/ /home/youtube-dl/.local/bin/
+COPY --from=builder /home/youtube-dl/.local/ /home/youtube-dl/.local/
 
 WORKDIR /home/youtube-dl/Downloads
 
