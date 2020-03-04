@@ -7,7 +7,7 @@
 #       youtube-dl "$@"
 #
 
-ARG YOUTUBE_DL_VERSION="2020.02.16"
+ARG YOUTUBE_DL_VERSION="2020.03.01"
 
 FROM python:3-alpine
 
