@@ -7,23 +7,28 @@
 #       youtube-dl "$@"
 #
 
-ARG YOUTUBE_DL_VERSION="master"
+ARG REVISION
+ARG CREATED
+ARG VERSION
+ARG GIT_REF="${VERSION}"
 
 FROM python:3-alpine as builder
 
-ARG YOUTUBE_DL_VERSION
-ENV YOUTUBE_DL_VERSION "${YOUTUBE_DL_VERSION}"
+ARG GIT_REF
 
 RUN apk add --no-cache git \
     && addgroup youtube-dl \
     && adduser -G youtube-dl -s /bin/sh -D youtube-dl
 
 USER youtube-dl
-RUN pip install --user --no-cache-dir "git+https://github.com/ytdl-org/youtube-dl@${YOUTUBE_DL_VERSION}" 
+RUN pip install --user --no-cache-dir "git+https://github.com/ytdl-org/youtube-dl@${GIT_REF}" 
 
 FROM python:3-alpine
 
-ARG YOUTUBE_DL_VERSION
+ARG VERSION
+ARG SOURCE
+ARG REVISION
+ARG CREATED
 
 RUN addgroup youtube-dl \
     && adduser -G youtube-dl -s /bin/sh -D youtube-dl
@@ -38,8 +43,9 @@ ENTRYPOINT ["youtube-dl"]
 CMD ["--help"]
 
 LABEL org.opencontainers.image.title="youtube-dl" \
-    org.opencontainers.image.description="youtube-dl in Docker" \  
-    org.opencontainers.image.url="https://github.com/westonsteimel/docker-youtube-dl" \ 
-    org.opencontainers.image.source="https://github.com/westonsteimel/docker-youtube-dl" \
-    org.opencontainers.image.version="${YOUTUBE_DL_VERSION}" \
-    version="${YOUTUBE_DL_VERSION}"
+    org.opencontainers.image.description="youtube-dl in Docker" \
+    org.opencontainers.image.source="${SOURCE}" \
+    org.opencontainers.image.revision="${REVISION}" \
+    org.opencontainers.image.created="${CREATED}" \
+    org.opencontainers.image.version="${VERSION}"
+
